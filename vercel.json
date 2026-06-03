@@ -1,7 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "ng build --configuration production",
-  "outputDirectory": "dist/client",
+  "installCommand": "cd client && npm install --legacy-peer-deps",
+  "buildCommand": "cd client && npx ng build --configuration production",
+  "outputDirectory": "client/dist/client",
   "framework": null,
   "rewrites": [
     {
