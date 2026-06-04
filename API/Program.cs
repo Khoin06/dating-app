@@ -42,7 +42,19 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200","http://localhost:4200", "https://your-app.vercel.app" ));
+
+var allowedOrigins = new List<string> { "https://localhost:4200", "http://localhost:4200" };
+var configOrigins = builder.Configuration["AllowedOrigins"];
+if (!string.IsNullOrEmpty(configOrigins))
+{
+    allowedOrigins.AddRange(configOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries));
+}
+else
+{
+    allowedOrigins.Add("https://your-app.vercel.app");
+}
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(allowedOrigins.ToArray()));
+
 app.UseAuthentication();
 app.UseAuthorization();
 
