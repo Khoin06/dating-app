@@ -10,7 +10,7 @@ services:
       - key: TokenKey
         generateValue: true
       - key: AllowedOrigins
-        value: https://dating-app-frontend.onrender.com
+        value: https://dating-app-y9s4.vercel.app
 
   # 2. Frontend Static Site (Angular)
   - type: web
