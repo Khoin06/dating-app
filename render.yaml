@@ -16,7 +16,6 @@ services:
   - type: web
     name: dating-app-frontend
     runtime: static
-    plan: free
     buildCommand: "cd client && npm install --legacy-peer-deps && npm run build"
     staticPublishPath: "./client/dist/client"
     routes:
