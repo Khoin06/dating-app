@@ -43,17 +43,11 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 
-var allowedOrigins = new List<string> { "https://localhost:4200", "http://localhost:4200" };
-var configOrigins = builder.Configuration["AllowedOrigins"];
-if (!string.IsNullOrEmpty(configOrigins))
-{
-    allowedOrigins.AddRange(configOrigins.Split(',', StringSplitOptions.RemoveEmptyEntries));
-}
-else
-{
-    allowedOrigins.Add("https://your-app.vercel.app");
-}
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(allowedOrigins.ToArray()));
+app.UseCors(x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .SetIsOriginAllowed(origin => true));
 
 app.UseAuthentication();
 app.UseAuthorization();
